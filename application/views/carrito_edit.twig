@@ -1,0 +1,57 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+?><!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Pagina de prueba</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+
+<div id="container-fluid">
+	<div class="col-xs-10 col-xs-offset-1">
+		<div class="row">
+			<div class="col-xs-9">
+				<h1>Mi carrito</h1>
+				<a href="{{base_url}}">Continuar comprando</a>
+			</div>
+			<div class="col-xs-3">
+				<a href="{{base_url}}/../login/logout">Salir</a>
+			</div>
+		</div>
+		
+		<form action="{{base_url}}/actualizar" method="post">
+		<table class="table">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Descripcion</th>
+					<th>Cantidad</th>
+					<th>$/Unidad</th>
+				</tr>
+			</thead>
+			{% for item in carrito.items %}
+			<tr>
+				<td><img src="http://lorempixel.com/50/50/technics/{{item.id}}" /></td>
+				<td>{{item.producto.descripcion}}</td>
+				<td><span class="col-xs-2">
+				<input type="hidden" name="id[]" value="{{item.id}}" />
+				<input type="text" name="cantidad[]" value="{{item.cantidad}}" class="form-control"></span></td>
+				<td>{{item.precio}}</td>
+				<td><a href="{{base_url}}/borrar/{{item.id}}">x</a></td>
+			</tr>
+			{% endfor %}
+			<tr>
+				<td colspan="3">Total</td>
+				<td>{{total}}</td>
+			</tr>
+		</table>
+		<input type="submit" value="Actualizar" class="btn btn-primary" />
+		<a href="{{base_url}}/checkout" class="btn btn-success">Checkout</a>
+		</form>
+	</div>
+</div>
+
+</body>
+</html>
